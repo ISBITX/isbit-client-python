@@ -1,0 +1,18 @@
+language: python
+python:
+- '3.2'
+- '3.3'
+- '3.4'
+- '3.5'
+- nightly
+install: pip install -r requirements.txt
+script: python setup.py test
+deploy:
+  provider: pypi
+  user: "PYPI_USER"
+  password:
+    secure: "PYPI_PASSWORD_SECURED_WITH_TRAVIS_ENCRYPT"
+  on:
+    tags: true
+    repo: ISBITX/isbit-client-python
+
