@@ -11,8 +11,8 @@ setup(
   url = 'https://github.com/ISBITX/isbit-client-python',
   long_description = readme(),
   author = "ISBITX",
-  license = "GPL",
-  keywords = "isbit mexico fintech bigdata ai blockchain",
+  license = "MIT",
+  keywords = "isbit mexico fintech bigdata ai blockchain iot",
   test_suite = "tests",
   packages = [
     "isbit_client"],
