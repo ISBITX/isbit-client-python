@@ -61,8 +61,25 @@ class IsbitClient:
     return self.response_to_dict(response)
 
   def response_to_dict(self, response):
-    try:
-      return response.json()
-    except ValueError:
-      raise IsbitClientError("Invalid response json format")
+    # Check the status of the respone
+    if response.status_code == 200 :
+      try:
+        return response.json()
+      except ValueError:
+        raise IsbitClientError("Invalid response json format: " + response.text) #return the response in plain text
+    #if the request does not have success, give the user some light in the matter. 
+    # Printing an error code and the response in plain text. 
+    # Helps in debugging requests
+    elif response.status_code == 500 :
+      #the server just returned an error
+      raise IsbitClientError('Server internal error 500: \n' + response.text) #return the error
+    elif response.status_code == 404 :
+      raise IsbitClientError('Not Found. Error: 404')
+    #TODO: Verify if exists use case
+    #elif response.status_code == 403 :
+      #raise IsbitClientError('Wrong place!. Error: 403')
+    elif response.status_code == 401 :
+      raise IsbitClientError('Unauthorized.  Error 401. Response:  \n' + response.text)
+    else:
+      raise IsbitClientError('Unknoun error retry in a moment. Error: '+ response.status_code +' \n Response: ' + response.text)
 
