@@ -62,7 +62,7 @@ class IsbitClient:
 
   def response_to_dict(self, response):
     # Check the status of the respone
-    if response.status_code == 200 :
+    if str(response.status_code)[0] == '2' : #Every 2xx status is a request success
       try:
         return response.json()
       except ValueError:
@@ -81,5 +81,5 @@ class IsbitClient:
     elif response.status_code == 401 :
       raise IsbitClientError('Unauthorized.  Error 401. Response:  \n' + response.text)
     else:
-      raise IsbitClientError('Unknoun error retry in a moment. Error: '+ response.status_code +' \n Response: ' + response.text)
+      raise IsbitClientError('Unknoun error retry in a moment. Error: '+ str(response.status_code) +' \n Response: ' + response.text)
 
